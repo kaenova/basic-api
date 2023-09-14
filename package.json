@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "nanoid": "^5.0.1"
+    "nanoid": "^3.3.6"
   }
 }
