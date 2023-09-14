@@ -1,5 +1,5 @@
 const express = require('express')
-const { getContact, addContact } = require('./utils')
+const { getContact, addContact, deleteContact } = require('./utils')
 const app = express()
 const port = 3000
 
@@ -17,6 +17,15 @@ app.post('/addContact', express.json(), (req, res) => {
   const phoneNumber = req.body.phoneNumber
   addContact(name, phoneNumber)
   return res.send('Berhasil menambahkan kontak')
+})
+
+app.delete('/deleteContact', express.json(), (req, res) => {
+  const id = req.body.id
+  if (deleteContact(id)) {
+    return res.send('Berhasil menghapus kontak')
+  } else {
+    return res.send("Gagal menghapus kontak")
+  }
 })
 
 app.listen(port, () => {

@@ -20,4 +20,21 @@ function addContact(name, phoneNumber) {
   fs.writeFileSync('data.json', jsonData)
 }
 
-module.exports = { getContact, addContact }
+function deleteContact(id) {
+  let jsonData = fs.readFileSync('data.json')
+  let data = JSON.parse(jsonData)
+
+  // search through data by looping
+  const index = data.findIndex((temp) => temp.id === id)
+
+  if (index === -1) {
+    return false
+  }
+
+  data.splice(index, 1)
+  jsonData = JSON.stringify(data)
+  fs.writeFileSync('data.json', jsonData)
+  return true
+}
+
+module.exports = { getContact, addContact, deleteContact }
