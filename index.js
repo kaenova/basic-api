@@ -1,8 +1,11 @@
 const express = require('express')
+var jwt = require('jsonwebtoken');
 const { getContact, addContact, deleteContact, updateContact } = require('./utils')
 const app = express()
 const port = 3000
-const serverKeyWord = 'apa hayoo'
+
+// Ini digunakan untuk JWT
+const serverSecret = 'bangkit2023H2'
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -15,8 +18,10 @@ app.get('/contact', (req, res) => {
 
 app.post('/contact', express.json(), (req, res) => {
   // Butuh penjagaan login
-  const userKeyWord = req.body.keyWord
-  if (userKeyWord !== serverKeyWord) {
+  try {
+    const userKeyWord = req.body.keyWord
+    jwt.verify(userKeyWord, serverSecret)
+  } catch (e) {
     return res.send('Anda tidak diperbolehkan menggunakan API ini')
   }
   const name = req.body.name
@@ -53,7 +58,7 @@ app.post('/login', express.json(), (req, res) => {
   // Lebih aman dengan disimpan di database serta password
   // yang di encrypt dgn bcrypt
   if (email === 'kaenova@bangkit.academy' && password == 'kerjago') {
-    return res.send(serverKeyWord)
+    return res.send(jwt.sign({ email: email }, serverSecret))
   }
   return res.send("Anda salah password")
 })
