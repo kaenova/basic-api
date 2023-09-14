@@ -1,5 +1,5 @@
 const express = require('express')
-const { getContact, addContact, deleteContact } = require('./utils')
+const { getContact, addContact, deleteContact, updateContact } = require('./utils')
 const app = express()
 const port = 3000
 
@@ -25,6 +25,17 @@ app.delete('/deleteContact', express.json(), (req, res) => {
     return res.send('Berhasil menghapus kontak')
   } else {
     return res.send("Gagal menghapus kontak")
+  }
+})
+
+app.patch('/updateContact', express.json(), (req, res) => {
+  const id = req.body.id
+  const name = req.body.name
+  const phoneNumber = req.body.phoneNumber
+  if (updateContact(id, name, phoneNumber)) {
+    return res.send('Berhasil mengupdate kontak')
+  } else {
+    return res.send("Gagal mengupdate kontak")
   }
 })
 
