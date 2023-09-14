@@ -7,19 +7,19 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.get('/getContact', (req, res) => {
+app.get('/contact', (req, res) => {
   const data = getContact()
   return res.json(data)
 })
 
-app.post('/addContact', express.json(), (req, res) => {
+app.post('/contact', express.json(), (req, res) => {
   const name = req.body.name
   const phoneNumber = req.body.phoneNumber
   addContact(name, phoneNumber)
   return res.send('Berhasil menambahkan kontak')
 })
 
-app.delete('/deleteContact', express.json(), (req, res) => {
+app.delete('/contact', express.json(), (req, res) => {
   const id = req.body.id
   if (deleteContact(id)) {
     return res.send('Berhasil menghapus kontak')
@@ -28,7 +28,7 @@ app.delete('/deleteContact', express.json(), (req, res) => {
   }
 })
 
-app.patch('/updateContact', express.json(), (req, res) => {
+app.patch('/contact', express.json(), (req, res) => {
   const id = req.body.id
   const name = req.body.name
   const phoneNumber = req.body.phoneNumber
