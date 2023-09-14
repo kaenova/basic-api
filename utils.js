@@ -49,7 +49,7 @@ function updateContact(id, name, phoneNumber) {
   }
 
   data[index].name = name
-  data[index].phoneNumber = phoneNumber
+  data[index].phone_number = phoneNumber
 
   jsonData = JSON.stringify(data)
   fs.writeFileSync('data.json', jsonData)
